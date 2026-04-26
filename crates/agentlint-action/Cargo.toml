@@ -1,0 +1,13 @@
+[package]
+name    = "agentlint-action"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "agentlint-action"
+path = "src/main.rs"
+
+[dependencies]
+agentlint-core = { path = "../agentlint-core" }
+serde_json     = { workspace = true }
+ignore         = { workspace = true }

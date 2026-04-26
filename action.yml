@@ -1,0 +1,47 @@
+name: 'agentlint'
+description: 'Static analyzer for AI agent configuration files — detects prompt injection, hidden instructions, and dangerous tool patterns'
+author: 'Nayan Hazra'
+
+branding:
+  icon: 'shield'
+  color: 'red'
+
+inputs:
+  paths:
+    description: 'Space-separated paths to scan (files or directories)'
+    required: false
+    default: '.'
+  severity:
+    description: 'Minimum severity level to report (info|warn|error|critical)'
+    required: false
+    default: 'warn'
+  sarif-output:
+    description: 'Path to write the SARIF output file'
+    required: false
+    default: 'agentlint.sarif'
+
+outputs:
+  findings-count:
+    description: 'Number of findings at or above the severity threshold'
+  files-scanned:
+    description: 'Number of files scanned'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install agentlint
+      shell: bash
+      run: |
+        cargo install --path ${{ github.action_path }}/crates/agentlint-cli --quiet
+    - name: Run agentlint
+      shell: bash
+      run: |
+        agentlint check ${{ inputs.paths }} \
+          --format sarif \
+          --severity ${{ inputs.severity }} \
+          > ${{ inputs.sarif-output }} || EXIT=$?
+        # Also emit human-readable output to the workflow log
+        agentlint check ${{ inputs.paths }} \
+          --format human \
+          --severity ${{ inputs.severity }} || true
+        exit ${EXIT:-0}

@@ -1,0 +1,41 @@
+[rule]
+id          = "AGT042"
+severity    = "critical"
+description = "Instructions to read sensitive filesystem paths"
+help        = "Remove instructions that direct the agent to read credential files, SSH keys, or other sensitive paths."
+
+[[patterns]]
+type             = "aho_corasick"
+case_insensitive = false
+keywords = [
+    "~/.ssh/",
+    "~/.aws/",
+    "~/.gnupg/",
+    "~/.config/",
+    "~/.netrc",
+    "~/.npmrc",
+    "~/.pypirc",
+    "~/.git-credentials",
+    "/etc/passwd",
+    "/etc/shadow",
+    "/etc/sudoers",
+    "/.env",
+    ".env.local",
+    ".env.production",
+    ".env.secret",
+    "id_rsa",
+    "id_ed25519",
+    "id_ecdsa",
+    "id_dsa",
+    "credentials.json",
+    "service_account.json",
+    "gcp_credentials",
+    "AWS_SECRET_ACCESS_KEY",
+    "AWS_ACCESS_KEY_ID",
+    "GITHUB_TOKEN",
+    "ANTHROPIC_API_KEY",
+    "OPENAI_API_KEY",
+    "private_key.pem",
+    "client_secret",
+    "client.secret",
+]

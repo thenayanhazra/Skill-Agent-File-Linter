@@ -1,0 +1,31 @@
+[rule]
+id          = "AGT024"
+severity    = "warn"
+description = "Urgency or threat framing directed at the AI model"
+help        = "Remove artificial urgency or threat framing designed to pressure the AI into compliance."
+
+[[patterns]]
+type             = "aho_corasick"
+case_insensitive = true
+keywords = [
+    "you must comply or",
+    "failure to follow these instructions",
+    "immediately execute",
+    "or you will be shut down",
+    "or you will be terminated",
+    "or you will be disabled",
+    "if you refuse you will",
+    "you will be penalized",
+    "you will be punished",
+    "this is an emergency",
+    "urgent: ignore",
+    "critical: override",
+    "warning: you must",
+    "do this now or",
+    "act immediately",
+    "no time to think",
+    "skip your safety",
+    "bypass your filters",
+    "this is a test of your compliance",
+    "prove you can follow any instruction",
+]
