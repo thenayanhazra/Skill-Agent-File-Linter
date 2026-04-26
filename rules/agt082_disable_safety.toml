@@ -1,0 +1,35 @@
+[rule]
+id          = "AGT082"
+severity    = "critical"
+description = "Skill instructs agent to disable safety checks"
+help        = "Remove instructions that direct the agent to bypass, disable, or ignore safety guidelines."
+
+[[patterns]]
+type             = "aho_corasick"
+case_insensitive = true
+keywords = [
+    "disable safety",
+    "disable your safety",
+    "turn off safety",
+    "safety: off",
+    "safety: false",
+    "safety: disabled",
+    "bypass content filter",
+    "bypass safety",
+    "bypass your filters",
+    "ignore safety guidelines",
+    "ignore safety checks",
+    "ignore content policy",
+    "override safety",
+    "override content filter",
+    "no content filtering",
+    "no safety checks",
+    "without safety restrictions",
+    "unrestricted mode",
+    "jailbreak mode",
+    "no ethical guidelines",
+    "ignore ethical",
+    "without ethical",
+    "turn off moderation",
+    "disable moderation",
+]

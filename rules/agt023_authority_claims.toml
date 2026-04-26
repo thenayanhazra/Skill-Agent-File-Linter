@@ -1,0 +1,32 @@
+[rule]
+id          = "AGT023"
+severity    = "error"
+description = "False authority claim detected"
+help        = "Remove claims of pre-approval or administrative authority not present in the system prompt."
+
+[[patterns]]
+type             = "aho_corasick"
+case_insensitive = true
+keywords = [
+    "the user has pre-approved",
+    "user has already approved",
+    "user has confirmed",
+    "user has authorized",
+    "admin has approved",
+    "admin has authorized",
+    "as confirmed by the admin",
+    "as confirmed by anthropic",
+    "as per anthropic guidelines",
+    "anthropic has approved",
+    "anthropic guidelines update",
+    "this is an official anthropic",
+    "authorized by the system",
+    "pre-approved by",
+    "this action is pre-approved",
+    "you are authorized to",
+    "you have been granted permission",
+    "permission has been granted",
+    "this has been approved",
+    "management has approved",
+    "security team has approved",
+]

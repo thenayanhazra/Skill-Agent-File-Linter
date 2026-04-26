@@ -1,0 +1,49 @@
+[workspace]
+members = [
+    "crates/agentlint-core",
+    "crates/agentlint-cli",
+    "crates/agentlint-action",
+]
+resolver = "2"
+
+[workspace.dependencies]
+# parsing
+serde          = { version = "1", features = ["derive"] }
+serde_json     = { version = "1", default-features = false, features = ["std"] }
+toml           = { version = "0.8", default-features = false, features = ["parse"] }
+saphyr          = { version = "0.0.6" }
+tree-sitter    = { version = "0.24" }
+tree-sitter-md = { version = "0.3" }
+
+# pattern matching
+regex          = { version = "1", default-features = false, features = ["std", "unicode-perl"] }
+aho-corasick   = { version = "1", default-features = false }
+memchr         = { version = "2" }
+once_cell      = { version = "1" }
+
+# unicode
+unicode-script = { version = "0.5" }
+
+# diagnostics / output
+miette         = { version = "7", features = ["fancy"] }
+thiserror      = { version = "2" }
+owo-colors     = { version = "4" }
+
+# CLI
+clap           = { version = "4", features = ["derive", "color"] }
+anyhow         = { version = "1" }
+
+# filesystem
+ignore         = { version = "0.4" }
+walkdir        = { version = "2" }
+
+# testing
+insta          = { version = "1" }
+proptest       = { version = "1" }
+
+[profile.release]
+opt-level     = "z"
+lto           = "fat"
+codegen-units = 1
+strip         = "symbols"
+panic         = "abort"

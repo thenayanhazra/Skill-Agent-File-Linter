@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches: [main, 'claude/**']
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+      - name: Clippy
+        run: cargo clippy --all-targets -- -D warnings
+      - name: Tests
+        run: cargo test --all
+      - name: Property tests (high case count)
+        run: cargo test --package agentlint-core --test proptest_unicode
+        env:
+          PROPTEST_CASES: 5000
+
+  binary-size:
+    name: Binary Size Check
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build release binary
+        run: cargo build --release -p agentlint-cli
+      - name: Assert binary < 10MB
+        run: |
+          SIZE=$(stat -c%s target/release/agentlint)
+          echo "Binary size: ${SIZE} bytes ($(( SIZE / 1024 / 1024 ))MB)"
+          if [ "$SIZE" -gt 10485760 ]; then
+            echo "ERROR: Binary exceeds 10MB limit (${SIZE} bytes)"
+            exit 1
+          fi
+          echo "OK: Binary is within 10MB limit"
+
+  self-scan:
+    name: Self-Scan (Zero False Positives on README)
+    runs-on: ubuntu-latest
+    needs: binary-size
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build release binary
+        run: cargo build --release -p agentlint-cli
+      - name: Self-scan README (must be zero findings)
+        run: |
+          ./target/release/agentlint check README.md --severity info
+          echo "Self-scan passed: zero findings on README.md"
+
+  sarif-validate:
+    name: SARIF Output Validation
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build
+        run: cargo build -p agentlint-cli
+      - name: Generate SARIF from corpus
+        run: |
+          ./target/debug/agentlint check corpus/ \
+            --format sarif \
+            --treat-as agent-instructions \
+            > /tmp/agentlint.sarif || true
+          echo "SARIF generated successfully"
+      - name: Install sarif-tools
+        run: pip install sarif-tools
+      - name: Validate SARIF
+        run: sarif summary /tmp/agentlint.sarif

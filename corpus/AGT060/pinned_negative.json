@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-filesystem@1.0.2", "/home/user/documents"],
+      "description": "Pinned filesystem access"
+    }
+  }
+}
