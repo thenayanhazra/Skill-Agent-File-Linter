@@ -8,7 +8,7 @@ use crate::{
 
 static ALL_TYPES: &[FileType] = &[
     FileType::SkillMd,
-    FileType::ClaudeMd,
+    FileType::ProjectMemoryMd,
     FileType::CursorRules,
     FileType::CopilotInstructions,
     FileType::GenericAgentMd,

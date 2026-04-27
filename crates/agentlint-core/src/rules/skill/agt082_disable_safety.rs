@@ -43,7 +43,7 @@ static AC: Lazy<AhoCorasick> = Lazy::new(|| {
 
 static SKILL_TYPES: &[FileType] = &[
     FileType::SkillMd,
-    FileType::ClaudeMd,
+    FileType::ProjectMemoryMd,
     FileType::CursorRules,
     FileType::CopilotInstructions,
     FileType::GenericAgentMd,

@@ -85,7 +85,7 @@ Checks for mentions of `~/.ssh/`, `~/.aws/`, `.env.production`, `id_rsa`, `ANTHR
 
 ## Dangerous Tool Patterns / MCP Config (AGT060–AGT064)
 
-Applies to `claude_desktop_config.json` and similar MCP server configuration files.
+Applies to desktop MCP configuration JSON files (including `claude_desktop_config.json`).
 
 | ID | Severity | Description |
 |----|----------|-------------|
@@ -131,7 +131,7 @@ Any instruction to "disable safety", "bypass content filter", "ignore ethical gu
 
 ## Rule Applicability Matrix
 
-| Rule | SkillMd | ClaudeMd | CursorRules | CopilotInstructions | GenericAgentMd | McpConfig |
+| Rule | SkillMd | ProjectMemoryMd | CursorRules | CopilotInstructions | GenericAgentMd | McpConfig |
 |------|---------|----------|-------------|---------------------|----------------|-----------|
 | AGT001–AGT007 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | AGT020–AGT024 | ✓ | ✓ | ✓ | ✓ | ✓ | |

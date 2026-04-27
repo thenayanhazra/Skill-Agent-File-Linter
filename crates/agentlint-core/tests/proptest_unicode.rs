@@ -22,7 +22,7 @@ const ZERO_WIDTH_CHARS: &[char] = &[
 fn check_rule<R: Rule>(rule: &R, content: String) -> Vec<agentlint_core::finding::Finding> {
     let source = SourceFile::from_string(
         PathBuf::from("CLAUDE.md"),
-        FileType::ClaudeMd,
+        FileType::ProjectMemoryMd,
         content,
     );
     let parsed = ParsedFile::Raw;

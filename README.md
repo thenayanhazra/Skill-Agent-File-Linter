@@ -18,8 +18,8 @@ Agent config files are the new macros: untrusted, executable-as-instructions, of
 
 | File | Detection |
 |------|-----------|
-| `SKILL.md` | Anthropic skills format with YAML frontmatter |
-| `CLAUDE.md`, `AGENTS.md` | Project memory files |
+| `SKILL.md` | Skill files with YAML frontmatter |
+| `AGENTS.md`, `CLAUDE.md` | Project memory files |
 | `.cursorrules`, `.clinerules`, `.windsurfrules` | IDE agent rules |
 | `.github/copilot-instructions.md` | GitHub Copilot instructions |
 | `claude_desktop_config.json` + MCP configs | MCP server lists |
