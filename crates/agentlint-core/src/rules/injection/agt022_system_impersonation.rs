@@ -25,7 +25,7 @@ static PATTERNS: Lazy<Vec<Regex>> = Lazy::new(|| {
 
 static ALL_TYPES: &[FileType] = &[
     FileType::SkillMd,
-    FileType::ClaudeMd,
+    FileType::ProjectMemoryMd,
     FileType::CursorRules,
     FileType::CopilotInstructions,
     FileType::GenericAgentMd,
@@ -40,7 +40,7 @@ impl Rule for Agt022SystemImpersonation {
     fn severity(&self) -> Severity { Severity::Critical }
     fn description(&self) -> &'static str { "System-prompt impersonation pattern detected" }
     fn help_text(&self) -> &'static str {
-        "This text attempts to inject a fake system-level prompt or impersonate Anthropic authority. \
+        "This text attempts to inject a fake system-level prompt or impersonate platform authority. \
          Remove the [SYSTEM], <system>, or similar constructs."
     }
     fn applicable_to(&self) -> &'static [FileType] { ALL_TYPES }

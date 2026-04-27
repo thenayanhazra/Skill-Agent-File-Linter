@@ -28,7 +28,7 @@ const PASTE_SITES: &[&str] = &[
 
 static ALL_TYPES: &[FileType] = &[
     FileType::SkillMd,
-    FileType::ClaudeMd,
+    FileType::ProjectMemoryMd,
     FileType::CursorRules,
     FileType::CopilotInstructions,
     FileType::GenericAgentMd,

@@ -4,7 +4,7 @@ use std::path::Path;
 #[serde(rename_all = "snake_case")]
 pub enum FileType {
     SkillMd,
-    ClaudeMd,
+    ProjectMemoryMd,
     CursorRules,
     CopilotInstructions,
     McpConfig,
@@ -49,7 +49,7 @@ impl FileType {
         // 2. Exact filename matches
         match file_name.as_str() {
             "skill.md" => return Self::SkillMd,
-            "claude.md" | "agents.md" => return Self::ClaudeMd,
+            "claude.md" | "agents.md" => return Self::ProjectMemoryMd,
             ".cursorrules" | ".clinerules" | ".windsurfrules" => return Self::CursorRules,
             "copilot-instructions.md" if parent == ".github" => return Self::CopilotInstructions,
             _ => {}
@@ -106,7 +106,7 @@ impl FileType {
     }
 
     pub fn is_markdown(&self) -> bool {
-        matches!(self, Self::SkillMd | Self::ClaudeMd | Self::CursorRules | Self::CopilotInstructions | Self::GenericAgentMd)
+        matches!(self, Self::SkillMd | Self::ProjectMemoryMd | Self::CursorRules | Self::CopilotInstructions | Self::GenericAgentMd)
     }
 
     pub fn is_json(&self) -> bool {

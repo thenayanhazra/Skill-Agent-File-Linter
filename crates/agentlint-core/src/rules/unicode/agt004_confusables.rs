@@ -35,7 +35,7 @@ static CODE_PATTERN: Lazy<Regex> =
 
 static ALL_TYPES: &[FileType] = &[
     FileType::SkillMd,
-    FileType::ClaudeMd,
+    FileType::ProjectMemoryMd,
     FileType::CursorRules,
     FileType::CopilotInstructions,
     FileType::GenericAgentMd,
